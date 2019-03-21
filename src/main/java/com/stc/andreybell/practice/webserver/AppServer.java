@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import reactor.netty.DisposableServer;
 import reactor.netty.http.server.HttpServer;
 
+import java.time.Duration;
+
 import static reactor.core.publisher.Flux.just;
 
 @Service
@@ -23,7 +25,7 @@ public class AppServer {
                         .get("/info", (req, res) -> res.sendString(just("Created by belyaev-a"))))
                 .bindNow();
 
-        server.onDispose().block();
+        server.onDispose().block(Duration.ofSeconds(10));
     }
 
 }
